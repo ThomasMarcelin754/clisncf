@@ -16,6 +16,7 @@ builds:
       - -X main.date={{.Date}}
     env:
       - CGO_ENABLED=0
+      - GOMAXPROCS=2
     goos:
       - darwin
       - linux
