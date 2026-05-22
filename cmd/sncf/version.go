@@ -36,6 +36,6 @@ var versionCmd = &cobra.Command{
 			}
 			return
 		}
-		fmt.Printf("sncf %s (%s) built %s\n", version, commit, date)
+		fmt.Printf("sncfcli %s (%s) built %s\n", version, commit, date)
 	},
 }

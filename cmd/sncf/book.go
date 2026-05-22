@@ -16,9 +16,9 @@ var bookCmd = &cobra.Command{
 	Long: `Drives the booking funnel up to the payment step.
 The CLI will NOT pay — it stops at finalization/create and shows the payment info.
 You must complete payment on sncf-connect.com or the app.`,
-	Example: `  sncf book --from "Paris" --to "Lyon" --date 2026-06-15 --select 0
-  sncf book --from "Paris" --to "Marseille" --date 2026-07-01 --time 08:00 --select 0
-  sncf book --from "Paris" --to "Toulon" --date 2026-07-10 --select 2 --seat FENETRE --deck BAS`,
+	Example: `  sncfcli book --from "Paris" --to "Lyon" --date 2026-06-15 --select 0
+  sncfcli book --from "Paris" --to "Marseille" --date 2026-07-01 --time 08:00 --select 0
+  sncfcli book --from "Paris" --to "Toulon" --date 2026-07-10 --select 2 --seat FENETRE --deck BAS`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")
@@ -125,7 +125,7 @@ You must complete payment on sncf-connect.com or the app.`,
 
 		fmt.Println("\nTrain added to cart. Next steps:")
 		fmt.Println("  1. Complete payment on sncf-connect.com or the app")
-		fmt.Println("  2. Use `sncf cart` to view your cart")
+		fmt.Println("  2. Use `sncfcli cart` to view your cart")
 		return nil
 	},
 }

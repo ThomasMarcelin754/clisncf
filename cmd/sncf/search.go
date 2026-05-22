@@ -21,17 +21,17 @@ func printProposals(results []api.Proposal) {
 	_ = w.Flush()
 	if len(results) > 0 {
 		fmt.Fprintf(os.Stderr, "\nItinerary ID: %s\n", results[0].ItineraryID)
-		fmt.Fprintf(os.Stderr, "Use `sncf search more %s` for later trains\n", results[0].ItineraryID)
+		fmt.Fprintf(os.Stderr, "Use `sncfcli search more %s` for later trains\n", results[0].ItineraryID)
 	}
 }
 
 var searchCmd = &cobra.Command{
 	Use:   "search",
 	Short: "Search trains (SNCF Connect BFF)",
-	Example: `  sncf search --from "Paris" --to "Lyon" --date 2026-06-01
-  sncf search --from "Paris" --to "Marseille" --date 2026-06-01 --time 08:00 --json
-  sncf search more <itineraryID>
-  sncf search more --previous <itineraryID>`,
+	Example: `  sncfcli search --from "Paris" --to "Lyon" --date 2026-06-01
+  sncfcli search --from "Paris" --to "Marseille" --date 2026-06-01 --time 08:00 --json
+  sncfcli search more <itineraryID>
+  sncfcli search more --previous <itineraryID>`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")
@@ -86,8 +86,8 @@ var searchCmd = &cobra.Command{
 var searchMoreCmd = &cobra.Command{
 	Use:   "more <itineraryID>",
 	Short: "Load next/previous page of search results",
-	Example: `  sncf search more <itineraryID>
-  sncf search more --previous <itineraryID>`,
+	Example: `  sncfcli search more <itineraryID>
+  sncfcli search more --previous <itineraryID>`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		previous, _ := cmd.Flags().GetBool("previous")

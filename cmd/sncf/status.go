@@ -13,8 +13,8 @@ import (
 var statusCmd = &cobra.Command{
 	Use:   "status [train-number]",
 	Short: "Check real-time train status",
-	Example: `  sncf status 6231
-  sncf status 6231 --json`,
+	Example: `  sncfcli status 6231
+  sncfcli status 6231 --json`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		trainNumber := args[0]

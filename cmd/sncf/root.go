@@ -30,7 +30,7 @@ func confirmAction(prompt string) bool {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "sncf",
+	Use:   "sncfcli",
 	Short: "SNCF CLI - Manage your train travel from the terminal",
 	Long:  `A command-line interface for searching trains, booking tickets, and managing your SNCF account.`,
 }

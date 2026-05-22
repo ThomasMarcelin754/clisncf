@@ -10,9 +10,9 @@ import (
 var vehicleCmd = &cobra.Command{
 	Use:   "vehicle <trainNumber>",
 	Short: "Show train composition, stops, and occupancy",
-	Example: `  sncf vehicle 6633 --date 2026-05-21
-  sncf vehicle 6609 --date 2026-06-15 --from RESARAIL_STA_8768600 --to RESARAIL_STA_8772319
-  sncf vehicle 6633 --date 2026-05-21 --json`,
+	Example: `  sncfcli vehicle 6633 --date 2026-05-21
+  sncfcli vehicle 6609 --date 2026-06-15 --from RESARAIL_STA_8768600 --to RESARAIL_STA_8772319
+  sncfcli vehicle 6633 --date 2026-05-21 --json`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		date, _ := cmd.Flags().GetString("date")

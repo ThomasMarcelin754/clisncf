@@ -86,7 +86,7 @@ var tripsShowCmd = &cobra.Command{
 var tripsFindCmd = &cobra.Command{
 	Use:   "find",
 	Short: "Find a trip by PNR reference + train number + date",
-	Example: "  sncf trips find --ref DH73QD --train 6616 --date 2026-04-19",
+	Example: "  sncfcli trips find --ref DH73QD --train 6616 --date 2026-04-19",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		ref, _ := cmd.Flags().GetString("ref")
 		train, _ := cmd.Flags().GetString("train")
@@ -124,8 +124,8 @@ var tripsFindCmd = &cobra.Command{
 var tripsSetMotiveCmd = &cobra.Command{
 	Use:   "set-motive <tripID>",
 	Short: "Set trip motive (business or personal)",
-	Example: `  sncf trips set-motive 550c27fa-... --business
-  sncf trips set-motive 550c27fa-... --personal`,
+	Example: `  sncfcli trips set-motive 550c27fa-... --business
+  sncfcli trips set-motive 550c27fa-... --personal`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		business, _ := cmd.Flags().GetBool("business")
@@ -177,7 +177,7 @@ var tripsFiltersCmd = &cobra.Command{
 var tripsSendHistoryCmd = &cobra.Command{
 	Use:   "send-history",
 	Short: "Send trip history summary by email",
-	Example: `  sncf trips send-history --date 2026-01-01 --email user@example.com`,
+	Example: `  sncfcli trips send-history --date 2026-01-01 --email user@example.com`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		date, _ := cmd.Flags().GetString("date")
 		email, _ := cmd.Flags().GetString("email")

@@ -119,8 +119,8 @@ var alertingDeleteCmd = &cobra.Command{
 var alertingCreateLowPriceCmd = &cobra.Command{
 	Use:   "create-low-price",
 	Short: "Create a low-price alert",
-	Example: `  sncf alerting create-low-price --from Lyon --to Paris --start 2026-06-01 --end 2026-06-15 --max-price 50
-  sncf alerting create-low-price --from "Marseille" --to "Paris" --start 2026-07-01 --end 2026-07-31 --max-price 35`,
+	Example: `  sncfcli alerting create-low-price --from Lyon --to Paris --start 2026-06-01 --end 2026-06-15 --max-price 50
+  sncfcli alerting create-low-price --from "Marseille" --to "Paris" --start 2026-07-01 --end 2026-07-31 --max-price 35`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")
@@ -156,7 +156,7 @@ var alertingCreateLowPriceCmd = &cobra.Command{
 var alertingCreateSalesOpeningCmd = &cobra.Command{
 	Use:   "create-sales-opening",
 	Short: "Create a sales-opening (booking) alert",
-	Example: `  sncf alerting create-sales-opening --from Paris --to Lyon --date 2026-09-01`,
+	Example: `  sncfcli alerting create-sales-opening --from Paris --to Lyon --date 2026-09-01`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")
@@ -190,7 +190,7 @@ var alertingCreateSalesOpeningCmd = &cobra.Command{
 var alertingCheckODCmd = &cobra.Command{
 	Use:     "check-od",
 	Short:   "Check if an OD is eligible for low-price alerts",
-	Example: `  sncf alerting check-od --from Paris --to Lyon`,
+	Example: `  sncfcli alerting check-od --from Paris --to Lyon`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")
@@ -235,8 +235,8 @@ var alertingCheckODCmd = &cobra.Command{
 var alertingCheckScheduleCmd = &cobra.Command{
 	Use:   "check-schedule",
 	Short: "Check schedule eligibility and get price range (min/max/avg) for an OD",
-	Example: `  sncf alerting check-schedule --from Paris --to Lyon --start 2026-06-01 --end 2026-06-30
-  sncf alerting check-schedule --from Marseille --to Bordeaux --start 2026-07-01 --end 2026-07-15`,
+	Example: `  sncfcli alerting check-schedule --from Paris --to Lyon --start 2026-06-01 --end 2026-06-30
+  sncfcli alerting check-schedule --from Marseille --to Bordeaux --start 2026-07-01 --end 2026-07-15`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")
@@ -281,8 +281,8 @@ var alertingCheckScheduleCmd = &cobra.Command{
 var alertingCalendarCmd = &cobra.Command{
 	Use:   "calendar",
 	Short: "Show best price per day for a route",
-	Example: `  sncf alerting calendar --from Paris --to Lyon --start 2026-06-01 --end 2026-06-30
-  sncf alerting calendar --from Marseille --to Lille --start 2026-07-01 --end 2026-07-31`,
+	Example: `  sncfcli alerting calendar --from Paris --to Lyon --start 2026-06-01 --end 2026-06-30
+  sncfcli alerting calendar --from Marseille --to Lille --start 2026-07-01 --end 2026-07-31`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		from, _ := cmd.Flags().GetString("from")
 		to, _ := cmd.Flags().GetString("to")

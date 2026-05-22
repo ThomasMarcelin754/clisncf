@@ -1,4 +1,4 @@
-BINARY_NAME=sncf
+BINARY_NAME=sncfcli
 BUILD_DIR=./cmd/sncf
 INSTALL_DIR=/usr/local/bin
 GOLANGCI := go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest

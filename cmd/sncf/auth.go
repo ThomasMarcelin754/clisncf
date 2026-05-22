@@ -81,7 +81,7 @@ var whoamiCmd = &cobra.Command{
 			return err
 		}
 		if sess == nil {
-			return fmt.Errorf("not logged in — run `sncf auth login`")
+			return fmt.Errorf("not logged in — run `sncfcli auth login`")
 		}
 		status := "HOT"
 		if sess.Expired() {
@@ -119,7 +119,7 @@ var authStatusCmd = &cobra.Command{
 			return err
 		}
 		if sess == nil {
-			fmt.Println("ABSENT — no session. Run `sncf auth login`.")
+			fmt.Println("ABSENT — no session. Run `sncfcli auth login`.")
 			return nil
 		}
 		if sess.Expired() {
@@ -127,7 +127,7 @@ var authStatusCmd = &cobra.Command{
 				fmt.Printf("COLD — token expired but refresh available (%s).\n", sess.Email)
 				fmt.Println("Next command will auto-refresh.")
 			} else {
-				fmt.Printf("DEAD — token expired, no refresh (%s). Run `sncf auth login`.\n", sess.Email)
+				fmt.Printf("DEAD — token expired, no refresh (%s). Run `sncfcli auth login`.\n", sess.Email)
 			}
 		} else {
 			fmt.Printf("HOT — %s, expires %s.\n", sess.Email, sess.ExpiresAt.Format("15:04:05"))

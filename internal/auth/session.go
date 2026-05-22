@@ -9,7 +9,7 @@ import (
 )
 
 // Session holds the tokens from a headless login or Chrome extraction.
-// Persisted to ~/.config/clisncf/session.json (0600, atomic write).
+// Persisted to ~/.config/sncfcli/session.json (0600, atomic write).
 type Session struct {
 	AccessToken  string    `json:"accessToken"`
 	IDToken      string    `json:"idToken"`
@@ -22,7 +22,7 @@ func sessionPath() string {
 	dir := os.Getenv("CLISNCF_CONFIG_DIR")
 	if dir == "" {
 		home, _ := os.UserHomeDir()
-		dir = filepath.Join(home, ".config", "clisncf")
+		dir = filepath.Join(home, ".config", "sncfcli")
 	}
 	return filepath.Join(dir, "session.json")
 }

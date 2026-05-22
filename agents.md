@@ -2,16 +2,16 @@
 
 Reference for any AI agent (or human) with shell access to operate this CLI.
 CLISNCF is a personal CLI for SNCF Connect, authenticated against a real account.
-Binary: `./sncf` (or `sncf` if installed via `make install`).
+Binary: `./sncfcli` (or `sncfcli` if installed via `make install`).
 
 ## Quick start
 
 ```bash
-sncf auth status          # check session state (HOT/COLD/expired)
-sncf search --from "Paris" --to "Lyon" --date 2026-07-10
-sncf book --from "Paris" --to "Lyon" --date 2026-07-10 --select 0 -y
-sncf cart                 # see what's in the basket
-sncf trips list --past    # past trips
+sncfcli auth status          # check session state (HOT/COLD/expired)
+sncfcli search --from "Paris" --to "Lyon" --date 2026-07-10
+sncfcli book --from "Paris" --to "Lyon" --date 2026-07-10 --select 0 -y
+sncfcli cart                 # see what's in the basket
+sncfcli trips list --past    # past trips
 ```
 
 All commands output to stdout (tables by default, `--json` for structured).
@@ -19,25 +19,25 @@ Diagnostics go to stderr. `--yes` / `-y` skips confirmation prompts.
 
 ## Authentication
 
-Session lives in `~/.config/clisncf/session.json` (access + ID + refresh tokens).
+Session lives in `~/.config/sncfcli/session.json` (access + ID + refresh tokens).
 Auto-refreshes on every command when expired. If refresh fails, re-login:
 
 ```bash
-sncf auth login --chrome   # headless OIDC, reads creds from Chrome, user types OTP
-sncf auth whoami           # verify identity
-sncf auth status           # HOT (valid) / COLD (needs refresh) / expired
+sncfcli auth login --chrome   # headless OIDC, reads creds from Chrome, user types OTP
+sncfcli auth whoami           # verify identity
+sncfcli auth status           # HOT (valid) / COLD (needs refresh) / expired
 ```
 
 ## Searching trains
 
 ```bash
-sncf search --from "Paris" --to "Marseille" --date 2026-08-01 --time 09:00
+sncfcli search --from "Paris" --to "Marseille" --date 2026-08-01 --time 09:00
 ```
 
 - Returns first page (6 results). Paginate with:
   ```bash
-  sncf search more <itineraryID>              # next page
-  sncf search more --previous <itineraryID>   # previous page
+  sncfcli search more <itineraryID>              # next page
+  sncfcli search more --previous <itineraryID>   # previous page
   ```
 - The itinerary ID is printed to stderr after each search.
 - Prices include the account's discount cards (Avantage Jeune, etc.) automatically.
@@ -48,10 +48,10 @@ sncf search --from "Paris" --to "Marseille" --date 2026-08-01 --time 09:00
 
 ```bash
 # Step 1: search (implicit in book)
-sncf book --from "Paris" --to "Toulon" --date 2026-07-10 --time 08:00 --select 2 -y
+sncfcli book --from "Paris" --to "Toulon" --date 2026-07-10 --time 08:00 --select 2 -y
 
 # With seat preference (1st class recommended for SOLO):
-sncf book --from "Paris" --to "Toulon" --date 2026-07-10 --select 2 --offer 1 \
+sncfcli book --from "Paris" --to "Toulon" --date 2026-07-10 --select 2 --offer 1 \
   --seat SOLO --deck BAS -y
 ```
 
@@ -82,10 +82,10 @@ exists in 1st class. To guarantee an isolated seat, book 1st class with `--seat 
 ## Cart management
 
 ```bash
-sncf cart                 # show basket (table)
-sncf cart --json          # structured output
-sncf cart --raw           # full BFF JSON (includes seat assignment details)
-sncf cart clear           # remove all items from cart
+sncfcli cart                 # show basket (table)
+sncfcli cart --json          # structured output
+sncfcli cart --raw           # full BFF JSON (includes seat assignment details)
+sncfcli cart clear           # remove all items from cart
 ```
 
 `cart --raw` is useful to verify the exact seat assigned (coach, seat number,
@@ -94,37 +94,37 @@ description, icon). The parsed `cart` command only shows route/price.
 ## Trips & proofs
 
 ```bash
-sncf trips list           # upcoming trips
-sncf trips list --past    # past trips
-sncf trips show <tripID>  # single trip details
-sncf proofs list          # trips eligible for justificatif
-sncf proofs generate --email user@example.com --name "Name" --trips <id1>,<id2>
+sncfcli trips list           # upcoming trips
+sncfcli trips list --past    # past trips
+sncfcli trips show <tripID>  # single trip details
+sncfcli proofs list          # trips eligible for justificatif
+sncfcli proofs generate --email user@example.com --name "Name" --trips <id1>,<id2>
 ```
 
 ## Account
 
 ```bash
-sncf account display      # profile, discount cards, loyalty number
-sncf account companions list
-sncf account payment-cards
+sncfcli account display      # profile, discount cards, loyalty number
+sncfcli account companions list
+sncfcli account payment-cards
 ```
 
 ## Alerts
 
 ```bash
-sncf alerting list
-sncf alerting calendar --from "Paris" --to "Lyon" --month 2026-07
-sncf alerting create-low-price --from "Paris" --to "Lyon" --date 2026-08-01
+sncfcli alerting list
+sncfcli alerting calendar --from "Paris" --to "Lyon" --month 2026-07
+sncfcli alerting create-low-price --from "Paris" --to "Lyon" --date 2026-08-01
 ```
 
 ## Real-time info
 
 ```bash
-sncf boards "Paris Gare de Lyon"          # departures
-sncf boards "Paris Gare de Lyon" --arrivals
-sncf status <trainNumber> --date 2026-07-10
-sncf vehicle <trainNumber> --date 2026-07-10 --from "Paris" --to "Toulon"
-sncf traffic                              # disruptions (no auth needed)
+sncfcli boards "Paris Gare de Lyon"          # departures
+sncfcli boards "Paris Gare de Lyon" --arrivals
+sncfcli status <trainNumber> --date 2026-07-10
+sncfcli vehicle <trainNumber> --date 2026-07-10 --from "Paris" --to "Toulon"
+sncfcli traffic                              # disruptions (no auth needed)
 ```
 
 ## Gotchas
@@ -134,11 +134,11 @@ sncf traffic                              # disruptions (no auth needed)
    with a residential/ISP proxy (e.g. Decodo: `SNCF_PROXY=http://user:pass@isp.decodo.com:10000`).
    Different ports = different IPs.
 
-2. **Search pagination**: `sncf search` returns 6 results per page. To see all
-   trains for a day, you need to paginate 3-4 times via `sncf search more <id>`.
+2. **Search pagination**: `sncfcli search` returns 6 results per page. To see all
+   trains for a day, you need to paginate 3-4 times via `sncfcli search more <id>`.
 
-3. **Book replaces vs. appends**: `sncf book` does NOT clear the cart first.
-   If you book twice, you get two items in the cart. Always `sncf cart clear`
+3. **Book replaces vs. appends**: `sncfcli book` does NOT clear the cart first.
+   If you book twice, you get two items in the cart. Always `sncfcli cart clear`
    before re-booking if you want to replace.
 
 4. **Select index depends on --time**: the `--select` index is relative to the

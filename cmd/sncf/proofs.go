@@ -54,8 +54,8 @@ var proofsListCmd = &cobra.Command{
 var proofsGenerateCmd = &cobra.Command{
 	Use:   "generate <tripID> [tripID...]",
 	Short: "Send a justificatif PDF by email for the given trip(s)",
-	Example: `  sncf proofs generate 550c27fa-c1ff-484c-9d06-3d6e3ddb6dea
-  sncf proofs generate --all --name "Jane Doe" --email user@example.com`,
+	Example: `  sncfcli proofs generate 550c27fa-c1ff-484c-9d06-3d6e3ddb6dea
+  sncfcli proofs generate --all --name "Jane Doe" --email user@example.com`,
 	Args: cobra.MinimumNArgs(0),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		all, _ := cmd.Flags().GetBool("all")

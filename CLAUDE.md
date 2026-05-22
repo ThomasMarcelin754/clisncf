@@ -7,7 +7,7 @@ Personal CLI for SNCF Connect. Go + cobra + enetx/surf.
 ```bash
 make check    # vet → lint (gosec) → test -race → govulncheck → build
 make build    # binary with ldflags (version/commit/date)
-make install  # → /usr/local/bin/sncf
+make install  # → /usr/local/bin/sncfcli
 ```
 
 ## Project layout
@@ -37,5 +37,5 @@ Coverage floors will be raised as unit-testable logic is added to each package.
 ## Secrets
 
 Never in the repo, tests, fixtures, or commit messages. Runtime session lives
-in `~/.config/clisncf/session.json` (0600, gitignored). Use obvious
+in `~/.config/sncfcli/session.json` (0600, gitignored). Use obvious
 placeholders in code (`"eyJ.payload.sig"`, `"supersecretjwt"`).

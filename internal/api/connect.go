@@ -265,10 +265,10 @@ func (c *ConnectClient) GetProofs() ([]Proof, error) {
 
 func classifyErr(status int, body []byte) error {
 	if bytes.Contains(body, []byte("captcha-delivery")) {
-		return fmt.Errorf("blocked by Datadome (HTTP %d) — run `sncf auth login` to re-authenticate", status)
+		return fmt.Errorf("blocked by Datadome (HTTP %d) — run `sncfcli auth login` to re-authenticate", status)
 	}
 	if status == 401 {
-		return fmt.Errorf("session expired (HTTP 401) — run `sncf auth login`")
+		return fmt.Errorf("session expired (HTTP 401) — run `sncfcli auth login`")
 	}
 	return fmt.Errorf("BFF error (HTTP %d): %.180s", status, body)
 }

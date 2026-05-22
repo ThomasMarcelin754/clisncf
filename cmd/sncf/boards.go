@@ -12,8 +12,8 @@ import (
 var boardsCmd = &cobra.Command{
 	Use:   "boards <station>",
 	Short: "Real-time departure/arrival boards for a station",
-	Example: `  sncf boards "Paris Gare de Lyon"
-  sncf boards "Marseille" --arrivals`,
+	Example: `  sncfcli boards "Paris Gare de Lyon"
+  sncfcli boards "Marseille" --arrivals`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		arrivals, _ := cmd.Flags().GetBool("arrivals")

@@ -426,8 +426,8 @@ func init() {
 var accountUpdateEnterpriseCmd = &cobra.Command{
 	Use:   "update-enterprise",
 	Short: "Set or update your enterprise code",
-	Example: `  sncf account update-enterprise --code CODE123 --enable
-  sncf account update-enterprise --code CODE123 --disable`,
+	Example: `  sncfcli account update-enterprise --code CODE123 --enable
+  sncfcli account update-enterprise --code CODE123 --disable`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		code, _ := cmd.Flags().GetString("code")
 		enable, _ := cmd.Flags().GetBool("enable")
@@ -463,7 +463,7 @@ var accountUpdateEnterpriseCmd = &cobra.Command{
 var accountUpdateInfoProCmd = &cobra.Command{
 	Use:   "update-info-pro",
 	Short: "Update your professional info (company, SIREN, TVA)",
-	Example: `  sncf account update-info-pro --company "ACME" --email-pro "pro@acme.fr" --siren "123456789"`,
+	Example: `  sncfcli account update-info-pro --company "ACME" --email-pro "pro@acme.fr" --siren "123456789"`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		company, _ := cmd.Flags().GetString("company")
 		emailPro, _ := cmd.Flags().GetString("email-pro")
@@ -489,8 +489,8 @@ var accountUpdateInfoProCmd = &cobra.Command{
 var accountUpdateNewsletterCmd = &cobra.Command{
 	Use:   "update-newsletter",
 	Short: "Subscribe or unsubscribe from the generic newsletter",
-	Example: `  sncf account update-newsletter --subscribe
-  sncf account update-newsletter --unsubscribe`,
+	Example: `  sncfcli account update-newsletter --subscribe
+  sncfcli account update-newsletter --unsubscribe`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		subscribe, _ := cmd.Flags().GetBool("subscribe")
 		unsubscribe, _ := cmd.Flags().GetBool("unsubscribe")
@@ -523,8 +523,8 @@ var accountUpdateNewsletterCmd = &cobra.Command{
 var accountUpdateNotificationCmd = &cobra.Command{
 	Use:   "update-notification <optInID>",
 	Short: "Enable or disable a notification preference",
-	Example: `  sncf account update-notification BEFORE_PRE_RESERVED_EXPIRATION --enable
-  sncf account update-notification BEFORE_PRE_RESERVED_EXPIRATION --disable`,
+	Example: `  sncfcli account update-notification BEFORE_PRE_RESERVED_EXPIRATION --enable
+  sncfcli account update-notification BEFORE_PRE_RESERVED_EXPIRATION --disable`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		enable, _ := cmd.Flags().GetBool("enable")
@@ -557,7 +557,7 @@ var accountUpdateNotificationCmd = &cobra.Command{
 var accountUpdatePaymentCardCmd = &cobra.Command{
 	Use:   "update-payment-card <cardID>",
 	Short: "Update a saved payment card's name or main status",
-	Example: `  sncf account update-payment-card 100016756526 --name "Ma carte" --main`,
+	Example: `  sncfcli account update-payment-card 100016756526 --name "Ma carte" --main`,
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		name, _ := cmd.Flags().GetString("name")
@@ -584,8 +584,8 @@ var accountUpdatePaymentCardCmd = &cobra.Command{
 var accountUpdateInfoCmd = &cobra.Command{
 	Use:   "update-info",
 	Short: "Update your personal info (name, phone, etc.)",
-	Example: `  sncf account update-info --phone "+33612345678"
-  sncf account update-info --first Thomas --last Marcelin`,
+	Example: `  sncfcli account update-info --phone "+33612345678"
+  sncfcli account update-info --first Thomas --last Marcelin`,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		client, err := authedClient()
 		if err != nil {
