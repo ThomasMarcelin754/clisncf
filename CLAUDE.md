@@ -13,7 +13,7 @@ make install  # → /usr/local/bin/sncfcli
 ## Project layout
 
 - `cmd/sncf/` — cobra commands (glue layer, no unit tests by design)
-- `internal/api/` — SNCF BFF client, surf transport, Datadome bypass
+- `internal/api/` — SNCF BFF client, surf transport
 - `internal/auth/` — headless OIDC login, Chrome cookie extraction, session persistence
 - `internal/output/` — JSON/table output helpers
 
