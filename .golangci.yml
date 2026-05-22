@@ -1,0 +1,38 @@
+version: "2"
+
+linters:
+  default: standard
+  enable:
+    - bodyclose
+    - gosec
+    - errorlint
+    - errchkjson
+    - nilerr
+    - durationcheck
+    - copyloopvar
+    - unconvert
+    - usestdlibvars
+  settings:
+    gosec:
+      excludes:
+        - G104  # duplicated by errcheck
+        - G117  # "secret in struct" — we marshal passwords/tokens by design
+        - G204  # subprocess with variable — we call sqlite3 on known Chrome paths
+        - G304  # file inclusion via variable — we read Chrome Cookies/Login Data
+        - G505  # crypto/sha1 — Chrome uses PBKDF2-SHA1, we must match
+        - G703  # path traversal — Chrome DB copy to tmpdir, controlled
+    errcheck:
+      exclude-functions:
+        - fmt.Fprintln
+        - fmt.Fprintf
+        - fmt.Println
+        - (io.Closer).Close
+        - (*os/exec.Cmd).Run
+  exclusions:
+    rules:
+      - linters: [errcheck]
+        path: cmd/
+        text: "Scanln"
+      - linters: [staticcheck]
+        text: "ST1005"
+        path: internal/auth/

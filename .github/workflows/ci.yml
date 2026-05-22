@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+
+      - name: vet
+        run: go vet ./...
+
+      - name: lint
+        uses: golangci/golangci-lint-action@v9
+        with:
+          install-mode: goinstall
+
+      - name: test
+        run: go test -race -coverprofile=coverage.out ./...
+
+      - name: coverage floors (per-package)
+        run: |
+          failed=0
+          # Packages with unit-testable logic and their minimum coverage %.
+          # cmd/sncf (cobra glue), internal/api (live-only), internal/output
+          # (trivial) are excluded — covered by documented live E2E backtest.
+          declare -A floors=(
+            ["github.com/thomasmarcelin/sncf-cli/internal/auth"]=8
+          )
+          for pkg in "${!floors[@]}"; do
+            floor=${floors[$pkg]}
+            cov=$(go tool cover -func=coverage.out | grep "^${pkg}" | grep "total:" | awk '{print int($3)}')
+            if [ -z "$cov" ]; then
+              echo "WARN: no coverage data for $pkg (no test files?)"
+              continue
+            fi
+            if [ "$cov" -lt "$floor" ]; then
+              echo "FAIL: $pkg coverage ${cov}% < floor ${floor}%"
+              failed=1
+            else
+              echo "OK:   $pkg coverage ${cov}% >= floor ${floor}%"
+            fi
+          done
+          exit $failed
+
+      - name: govulncheck
+        run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+
+      - name: build
+        run: go build -o sncf ./cmd/sncf
+
+      - name: smoke test
+        run: ./sncf version --json

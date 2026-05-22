@@ -1,0 +1,29 @@
+# Binary
+/sncf
+
+# Data
+data/
+
+# Build output
+dist/
+
+# Session (secrets)
+session.json
+
+# OS
+.DS_Store
+
+# Claude
+.claude/
+
+# Test / scratch
+*.log
+*.json
+!go.mod
+!go.sum
+!/internal/**/*.json
+*.py
+*.db
+*.db-shm
+*.db-wal
+*.sh
